@@ -1,0 +1,6 @@
+{
+  "name": "devbox",
+  "image": "devbox",
+  "remoteUser": "dev",
+  "forwardPorts": [3000, 8080, 5173]
+}
