@@ -10,17 +10,17 @@ Built to prevent supply-chain packages, secrets leakage, and agentic tools from 
 
 ```mermaid
  graph TD
-      A["VS Code UI<br/>(Mac — window & keyboard only)"]
-      B["VS Code Server<br/>Extensions · Terminal · File I/O"]
-      C["devbox container<br/>Node · Python · Claude Code · Git"]
+    A["VS Code UI<br/>(Mac — window & keyboard only)"]
+    B["VS Code Server<br/>Extensions · Terminal · File I/O"]
+    C["devbox container<br/>Node · Python · Claude Code · Git"]
 
-      A -- "JSON-RPC over socket" --> B
-      B -- "runs inside" --> C
+    A -- "JSON-RPC over socket" --> B
+    B -- "runs inside" --> C
 
-      subgraph OrbStack
-          B
-          C
-      end
+    subgraph OrbStack
+        B
+        C
+    end
 ```
 
 The VS Code window on your Mac is a thin UI shell. Every meaningful action — terminals, linters, extensions, file I/O — runs inside the container.
