@@ -63,3 +63,16 @@ Open in VS Code / Cursor
 
 All terminals, extensions, and tools now run inside the isolated environment.
 ```
+
+---
+
+One-time: SSH key setup per container
+
+Each new container generates its own SSH key. After first open:
+
+1. The public key prints in the VS Code terminal during container creation
+2. Copy it to GitHub → Settings → SSH keys → New SSH key
+3. Verify with ssh -T git@github.com inside the container
+
+If the key doesn't print (container already existed), run inside the terminal:
+cat ~/.ssh/id_ed25519.pub
