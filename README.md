@@ -16,7 +16,7 @@ A repeatable, security-isolated development environment for macOS. All code, too
 ## What's inside the container
 
 - Ubuntu 24.04, non-root `dev` user
-- Node (via nvm, LTS), Python 3, pipx
+- Node (via nvm, LTS), Python 3, pipx, Bun
 - Claude Code CLI
 - Git with SSH key generated on first container creation
 
@@ -64,7 +64,10 @@ sequenceDiagram
     Container-->>Mac: print public key in VS Code terminal
     Mac->>GitHub: add public key to SSH keys (manual)
     Mac->>Container: run claude-setup (manual, in VS Code terminal)
-    Container->>Container: claude auth + install plugins
+    Container->>Container: write settings.json with plugins
+    Container->>Container: claude auth login (browser flow)
+    Mac->>Container: open claude, run /reload-plugins
+    Note over Container: plugins now active
 
     Note over Mac,GitHub: Flow 2 — Returning to existing container
 
@@ -128,13 +131,26 @@ ssh -T git@github.com
 
 ### 5. Set up Claude
 
-Run from the **VS Code terminal** (not your Mac terminal — running from Mac installs to host Claude):
+Run from the **VS Code terminal** (not your Mac terminal — running from Mac targets host Claude instead):
 
 ```bash
 claude-setup
 ```
 
-This authenticates Claude and installs baseline plugins: `skill-creator`, `superpowers`, `claude-mem`, `frontend-design`.
+This writes `~/.claude/settings.json` with baseline plugins and triggers the browser auth flow if not already authenticated.
+
+Then activate the plugins inside Claude:
+
+```bash
+claude
+```
+
+Once inside:
+```
+/reload-plugins
+```
+
+Plugins are now active for the session.
 
 ---
 
