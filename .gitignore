@@ -3,3 +3,4 @@
 !.env.example
 *.local
 .DS_Store
+.context-backup/

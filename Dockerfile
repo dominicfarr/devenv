@@ -39,6 +39,12 @@ USER root
 RUN apt-get update && apt-get install -y python3 python3-pip python3-venv pipx \
     && rm -rf /var/lib/apt/lists/*
 
+# uv and ruff
+USER $USERNAME
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
+    && echo 'export PATH="$HOME/.local/bin:$PATH"' >> /home/dev/.zshrc
+RUN . $HOME/.local/bin/env && uv tool install ruff
+
 # Bun
 USER $USERNAME
 RUN curl -fsSL https://bun.sh/install | bash \
@@ -52,7 +58,9 @@ RUN . $NVM_DIR/nvm.sh && npm install -g @anthropic-ai/claude-code
 USER root
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY claude-setup.sh /usr/local/bin/claude-setup
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/claude-setup
+COPY backup-context.sh /usr/local/bin/backup-context
+COPY restore-context.sh /usr/local/bin/restore-context
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/claude-setup /usr/local/bin/backup-context /usr/local/bin/restore-context
 USER $USERNAME
 WORKDIR /home/$USERNAME
 

@@ -171,11 +171,96 @@ Your project files are never affected — they live on your Mac and are bind-mou
 
 ---
 
+## Updating the container image
+
+When you change the `Dockerfile` and rebuild, existing containers are unaffected — they keep running from the old image. Only new containers pick up the new image.
+
+When you're ready to migrate a container to the new image:
+
+### 1. Back up context first
+
+Run from inside the container (VS Code terminal):
+
+```bash
+backup-context
+```
+
+This saves `~/.claude-mem/`, `~/.claude/settings.json`, and `~/.claude/memory/` to `/workspaces/<project>/.context-backup/` — which maps to your Mac and survives the rebuild.
+
+### 2. Rebuild the container
+
+In VS Code: `Dev Containers: Rebuild Container`
+
+### 3. Restore context
+
+After the container starts, run `claude-setup` first, then:
+
+```bash
+restore-context
+```
+
+Then inside `claude`:
+```
+/reload-plugins
+```
+
+---
+
+## Developer loop
+
+A practical session recipe using the installed plugins.
+
+### Starting a new feature
+
+```
+/superpowers:test-driven-development
+```
+Activates strict TDD mode — no production code without a failing test first.
+
+### Planning before building
+
+```
+/claude-mem:make-plan
+```
+Creates a phased implementation plan. Run `/claude-mem:do` to execute it with subagents.
+
+### Working with large outputs (logs, test results, API responses)
+
+`context-mode` activates automatically via a hook when tool output is large. No manual step needed — it routes through `ctx_execute` to avoid filling the context window.
+
+### Remembering decisions across sessions
+
+`claude-mem` observes your session automatically. To search past work:
+```
+/claude-mem:mem-search
+```
+
+To understand an unfamiliar codebase:
+```
+/claude-mem:learn-codebase
+```
+
+### Frontend work
+
+```
+/frontend-design
+```
+Activates design-aware mode for UI tasks.
+
+### Creating project-specific skills
+
+```
+/skill-creator
+```
+Turn repeated prompts into reusable skills scoped to the project.
+
+---
+
 ## Key boundaries
 
 | Lives on Mac | Lives in container |
 |---|---|
-| Project files (`~/Projects/`) | Runtimes (Node, Python) |
+| Project files (`~/Projects/`) | Runtimes (Node, Python, Bun) |
 | Host SSH keys | Container SSH key |
 | Mac credentials & keychain | Claude auth & plugins |
 | `devenv` repo | Installed packages |

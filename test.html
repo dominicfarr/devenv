@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Morgan Blake — CTO & Engineering Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --cream: #f5f0e8;
+        --cream-alt: #ede8de;
+        --ink: #17140f;
+        --ink-mid: #5a5248;
+        --ink-light: #a09890;
+        --forest: #1f3829;
+        --forest-mid: #2a4d39;
+        --forest-light: #3d6b52;
+        --rust: #b04a2a;
+        --rust-light: #c8593a;
+        --rule: #d8d2c8;
+        --ff-serif: "Cormorant Garamond", "Georgia", serif;
+        --ff-sans: "DM Sans", system-ui, sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: var(--ff-sans);
+        font-size: 16px;
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.75s ease,
+          transform 0.75s ease;
+      }
+
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+      .reveal-delay-5 {
+        transition-delay: 0.5s;
+      }
+      .reveal-delay-6 {
+        transition-delay: 0.6s;
+      }
+      .reveal-delay-7 {
+        transition-delay: 0.7s;
+      }
+
+      /* =====================================================
+       NAV
+    ===================================================== */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 0 3.5rem;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(245, 240, 232, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s;
+      }
+
+      nav.scrolled {
+        border-bottom-color: var(--rule);
+      }
+
+      .nav-mark {
+        font-family: var(--ff-serif);
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--ink);
+        text-decoration: none;
+        letter-spacing: 0.5px;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2.5rem;
+      }
+
+      .nav-links a {
+        font-family: var(--ff-sans);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: var(--ink-mid);
+        text-decoration: none;
+        position: relative;
+        transition: color 0.2s;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 100%;
+        height: 1px;
+        background: var(--ink);
+        transition: right 0.25s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+      .nav-links a:hover::after {
+        right: 0;
+      }
+
+      .nav-links a.active {
+        color: var(--ink);
+      }
+
+      .nav-links a.active::after {
+        right: 0;
+      }
+
+      /* =====================================================
+       HERO
+    ===================================================== */
+      #hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        padding: 56px 3.5rem 0;
+      }
+
+      .hero-main {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        align-items: end;
+        gap: 4rem;
+        padding: 10vh 0 5vh;
+      }
+
+      .hero-left {
+      }
+
+      .hero-eyebrow {
+        font-family: var(--ff-sans);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.1s ease forwards;
+      }
+
+      .hero-name {
+        font-family: var(--ff-serif);
+        font-style: italic;
+        font-weight: 600;
+        font-size: clamp(5.5rem, 10vw, 9.5rem);
+        line-height: 0.92;
+        color: var(--ink);
+        letter-spacing: -1px;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.25s ease forwards;
+      }
+
+      .hero-name .first {
+        display: block;
+      }
+      .hero-name .last {
+        display: block;
+        color: var(--forest);
+      }
+
+      .hero-rule {
+        width: 100%;
+        height: 1px;
+        background: var(--rule);
+        margin: 2.5rem 0;
+        opacity: 0;
+        animation: fadeUp 0.6s 0.45s ease forwards;
+      }
+
+      .hero-tagline {
+        font-family: var(--ff-serif);
+        font-style: italic;
+        font-size: clamp(1.25rem, 2vw, 1.6rem);
+        color: var(--ink-mid);
+        max-width: 680px;
+        line-height: 1.5;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.6s ease forwards;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2.75rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.8s ease forwards;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.75rem;
+        font-family: var(--ff-sans);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--forest);
+        color: var(--cream);
+        border: 1px solid var(--forest);
+      }
+
+      .btn-primary:hover {
+        background: var(--forest-mid);
+        border-color: var(--forest-mid);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--rule);
+      }
+
+      .btn-outline:hover {
+        border-color: var(--ink-mid);
+      }
+
+      /* Hero meta column */
+      .hero-right {
+        padding-bottom: 0.75rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.4s ease forwards;
+      }
+
+      .hero-meta-item {
+        padding: 1.25rem 0;
+        border-top: 1px solid var(--rule);
+      }
+
+      .hero-meta-label {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+        margin-bottom: 0.3rem;
+      }
+
+      .hero-meta-value {
+        font-size: 14px;
+        color: var(--ink-mid);
+        line-height: 1.5;
+      }
+
+      /* Hero footer strip */
+      .hero-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+        border-top: 1px solid var(--rule);
+        opacity: 0;
+        animation: fadeUp 0.6s 1s ease forwards;
+      }
+
+      .hero-footer-left {
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+      }
+
+      .scroll-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+      }
+
+      .scroll-arrow {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        animation: scrollBob 2s ease-in-out infinite;
+      }
+
+      .scroll-arrow span {
+        display: block;
+        width: 10px;
+        height: 1px;
+        background: var(--ink-light);
+        transform-origin: center;
+      }
+
+      .scroll-arrow span:nth-child(1) {
+        transform: rotate(45deg) translateX(3px);
+      }
+      .scroll-arrow span:nth-child(2) {
+        transform: rotate(-45deg) translateX(3px);
+      }
+
+      @keyframes scrollBob {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(4px);
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(22px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* =====================================================
+       SHARED SECTION STYLES
+    ===================================================== */
+      .section-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 7rem 3.5rem;
+      }
+
+      .section-label {
+        font-family: var(--ff-sans);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+        margin-bottom: 1.25rem;
+      }
+
+      .section-title {
+        font-family: var(--ff-serif);
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 600;
+        line-height: 1.05;
+        color: var(--ink);
+        letter-spacing: -0.5px;
+      }
+
+      .section-rule {
+        width: 48px;
+        height: 2px;
+        background: var(--forest);
+        margin: 1.75rem 0 3rem;
+      }
+
+      /* =====================================================
+       PHILOSOPHY  (dark green section)
+    ===================================================== */
+      #philosophy {
+        background: var(--forest);
+      }
+
+      #philosophy .section-inner {
+        padding: 8rem 3.5rem;
+      }
+
+      .philosophy-label {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--forest-light);
+        margin-bottom: 3rem;
+      }
+
+      .philosophy-mark {
+        font-family: var(--ff-serif);
+        font-size: 8rem;
+        line-height: 0.7;
+        color: var(--forest-light);
+        margin-bottom: -1rem;
+        user-select: none;
+      }
+
+      .philosophy-quote {
+        font-family: var(--ff-serif);
+        font-style: italic;
+        font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+        color: var(--cream);
+        line-height: 1.5;
+        max-width: 860px;
+        font-weight: 400;
+      }
+
+      .philosophy-quote em {
+        font-style: normal;
+        color: #8dbfa0;
+      }
+
+      .philosophy-attribution {
+        margin-top: 2.5rem;
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--forest-light);
+        letter-spacing: 0.5px;
+      }
+
+      .philosophy-pillars {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--forest-mid);
+        margin-top: 5rem;
+      }
+
+      .pillar {
+        background: var(--forest);
+        padding: 2.5rem;
+        transition: background 0.2s;
+      }
+
+      .pillar:hover {
+        background: var(--forest-mid);
+      }
+
+      .pillar-num {
+        font-family: var(--ff-serif);
+        font-size: 3rem;
+        font-weight: 400;
+        color: var(--forest-light);
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+
+      .pillar-title {
+        font-family: var(--ff-sans);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--cream);
+        letter-spacing: 0.5px;
+        margin-bottom: 0.75rem;
+      }
+
+      .pillar-body {
+        font-size: 13.5px;
+        color: var(--forest-light);
+        line-height: 1.7;
+      }
+
+      /* =====================================================
+       EXPERTISE
+    ===================================================== */
+      #expertise {
+        border-top: 1px solid var(--rule);
+      }
+
+      .expertise-intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: end;
+        margin-bottom: 4rem;
+      }
+
+      .expertise-body {
+        font-size: 15px;
+        color: var(--ink-mid);
+        line-height: 1.8;
+        max-width: 52ch;
+      }
+
+      .expertise-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        border-top: 1px solid var(--rule);
+      }
+
+      .expertise-item {
+        padding: 2rem 2rem 2rem 0;
+        border-bottom: 1px solid var(--rule);
+        border-right: 1px solid var(--rule);
+        transition: background 0.2s;
+      }
+
+      .expertise-item:nth-child(3n) {
+        border-right: none;
+      }
+
+      .expertise-item:hover {
+        background: var(--cream-alt);
+      }
+
+      .exp-num {
+        font-family: var(--ff-sans);
+        font-size: 10px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        color: var(--ink-light);
+        margin-bottom: 0.75rem;
+      }
+
+      .exp-title {
+        font-family: var(--ff-sans);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+      }
+
+      .exp-detail {
+        font-size: 12px;
+        color: var(--ink-light);
+        line-height: 1.5;
+      }
+
+      /* =====================================================
+       APPROACH
+    ===================================================== */
+      #approach {
+        background: var(--cream-alt);
+        border-top: 1px solid var(--rule);
+      }
+
+      .approach-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+      }
+
+      .approach-item {
+      }
+
+      .approach-rule {
+        width: 100%;
+        height: 1px;
+        background: var(--rule);
+        margin-bottom: 1.75rem;
+        position: relative;
+      }
+
+      .approach-rule::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 48px;
+        height: 1px;
+        background: var(--forest);
+      }
+
+      .approach-title {
+        font-family: var(--ff-serif);
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+
+      .approach-body {
+        font-size: 14px;
+        color: var(--ink-mid);
+        line-height: 1.75;
+      }
+
+      /* =====================================================
+       CONTACT
+    ===================================================== */
+      #contact {
+        border-top: 1px solid var(--rule);
+      }
+
+      .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8rem;
+        align-items: start;
+      }
+
+      .contact-heading {
+        font-family: var(--ff-serif);
+        font-style: italic;
+        font-size: clamp(2.5rem, 4vw, 3.8rem);
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+      }
+
+      .contact-heading span {
+        color: var(--forest);
+      }
+
+      .contact-body {
+        font-size: 15px;
+        color: var(--ink-mid);
+        line-height: 1.8;
+        margin-top: 1.5rem;
+        max-width: 48ch;
+      }
+
+      .contact-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.4rem 0;
+        border-bottom: 1px solid var(--rule);
+        text-decoration: none;
+        color: var(--ink);
+        transition: all 0.2s;
+        group: true;
+      }
+
+      .contact-item:first-child {
+        border-top: 1px solid var(--rule);
+      }
+
+      .contact-item:hover {
+        padding-left: 0.5rem;
+      }
+
+      .contact-item:hover .ci-arrow {
+        transform: translateX(4px);
+        color: var(--forest);
+      }
+
+      .ci-left {
+      }
+
+      .ci-label {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+        margin-bottom: 0.2rem;
+      }
+
+      .ci-value {
+        font-size: 15px;
+        color: var(--ink);
+      }
+
+      .ci-arrow {
+        font-size: 18px;
+        color: var(--ink-light);
+        transition:
+          transform 0.2s,
+          color 0.2s;
+        flex-shrink: 0;
+      }
+
+      /* =====================================================
+       FOOTER
+    ===================================================== */
+      footer {
+        background: var(--ink);
+        padding: 2rem 3.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-name {
+        font-family: var(--ff-serif);
+        font-style: italic;
+        font-size: 1.15rem;
+        color: var(--cream-alt);
+      }
+
+      .footer-copy {
+        font-size: 12px;
+        color: #5a5248;
+        letter-spacing: 0.5px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-links a {
+        font-size: 12px;
+        color: #5a5248;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--cream-alt);
+      }
+
+      /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+      @media (max-width: 960px) {
+        nav {
+          padding: 0 1.75rem;
+        }
+        .section-inner {
+          padding: 5rem 1.75rem;
+        }
+        #hero {
+          padding: 56px 1.75rem 0;
+        }
+
+        .hero-main {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .hero-right {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .hero-meta-item:first-child {
+          border-top: 1px solid var(--rule);
+        }
+
+        .expertise-intro {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .expertise-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .expertise-item:nth-child(2n) {
+          border-right: none;
+        }
+        .expertise-item:nth-child(3n) {
+          border-right: 1px solid var(--rule);
+        }
+
+        .philosophy-pillars {
+          grid-template-columns: 1fr;
+        }
+        .approach-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+        }
+        .contact-layout {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+
+        footer {
+          flex-direction: column;
+          gap: 0.75rem;
+          text-align: center;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .expertise-grid {
+          grid-template-columns: 1fr;
+        }
+        .expertise-item {
+          border-right: none !important;
+        }
+        .hero-right {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV ─────────────────────────────────────────────── -->
+    <nav id="nav">
+      <a href="#hero" class="nav-mark">MB</a>
+      <ul class="nav-links">
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO ─────────────────────────────────────────────── -->
+    <section id="hero">
+      <div class="hero-main">
+        <div class="hero-left">
+          <div class="hero-eyebrow">CTO &amp; Engineering Leader</div>
+          <h1 class="hero-name">
+            <span class="first">Morgan</span>
+            <span class="last">Blake</span>
+          </h1>
+          <div class="hero-rule"></div>
+          <p class="hero-tagline">
+            Technology creates impact when people are aligned, communication is
+            open, and ceremonies serve purpose — not ritual.
+          </p>
+          <div class="hero-ctas">
+            <a href="#expertise" class="btn btn-primary">View Expertise</a>
+            <a href="#contact" class="btn btn-outline">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-meta-item">
+            <div class="hero-meta-label">Currently</div>
+            <div class="hero-meta-value">
+              Available for CTO,<br />VP Eng &amp; Advisory roles
+            </div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-label">Focus Areas</div>
+            <div class="hero-meta-value">
+              Cloud · AI/NLP<br />Distributed Systems
+            </div>
+          </div>
+          <div class="hero-meta-item">
+            <div class="hero-meta-label">Stack</div>
+            <div class="hero-meta-value">
+              TypeScript · Python<br />Svelte · AWS
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-footer">
+        <div class="hero-footer-left">
+          Engineering Leadership · Systems Architecture · Applied AI
+        </div>
+        <div class="scroll-indicator">
+          Explore
+          <div class="scroll-arrow">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHILOSOPHY ───────────────────────────────────────── -->
+    <section id="philosophy">
+      <div class="section-inner">
+        <p class="philosophy-label reveal">Leadership Philosophy</p>
+        <div class="philosophy-mark reveal reveal-delay-1">"</div>
+        <blockquote class="philosophy-quote reveal reveal-delay-2">
+          Great engineering outcomes come from <em>great teams</em>, not
+          processes. Technology creates impact when people are aligned,
+          communication is open, and ceremonies serve <em>purpose</em>, not
+          ritual. I focus on clarity, collaboration, and shared ownership to
+          turn intent into delivery — and delivery into progress.
+        </blockquote>
+        <p class="philosophy-attribution reveal reveal-delay-3">
+          — Morgan Blake
+        </p>
+
+        <div class="philosophy-pillars">
+          <div class="pillar reveal reveal-delay-2">
+            <div class="pillar-num">01</div>
+            <div class="pillar-title">People over Process</div>
+            <p class="pillar-body">
+              Outcomes flow from high-trust teams with clear purpose. Process is
+              a tool, never the goal. I build environments where engineers own
+              their craft and hold each other to it.
+            </p>
+          </div>
+          <div class="pillar reveal reveal-delay-3">
+            <div class="pillar-num">02</div>
+            <div class="pillar-title">Clarity &amp; Communication</div>
+            <p class="pillar-body">
+              Open communication removes the invisible friction that derails
+              delivery. I operate on the principle that ambiguity is a risk —
+              and I treat it accordingly.
+            </p>
+          </div>
+          <div class="pillar reveal reveal-delay-4">
+            <div class="pillar-num">03</div>
+            <div class="pillar-title">Shared Ownership</div>
+            <p class="pillar-body">
+              Delivery without ownership is fragile. I create cultures where
+              teams feel genuine accountability — not because they have to, but
+              because they understand why it matters.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERTISE ────────────────────────────────────────── -->
+    <section id="expertise">
+      <div class="section-inner">
+        <div class="expertise-intro">
+          <div>
+            <p class="section-label reveal">Core Strengths</p>
+            <h2 class="section-title reveal reveal-delay-1">
+              What I bring<br />to the table.
+            </h2>
+            <div class="section-rule reveal reveal-delay-2"></div>
+          </div>
+          <div>
+            <p class="expertise-body reveal reveal-delay-2">
+              Across a decade of building products and leading engineering
+              organisations, I've operated at the intersection of technical
+              depth and business clarity — translating complex systems thinking
+              into strategy that non-technical stakeholders can act on.
+            </p>
+          </div>
+        </div>
+
+        <div class="expertise-grid">
+          <div class="expertise-item reveal reveal-delay-1">
+            <div class="exp-num">01</div>
+            <div class="exp-title">
+              Technical Strategy &amp;<br />Systems Architecture
+            </div>
+            <div class="exp-detail">
+              Cloud-native, event-driven, built for scale
+            </div>
+          </div>
+
+          <div class="expertise-item reveal reveal-delay-2">
+            <div class="exp-num">02</div>
+            <div class="exp-title">
+              Engineering Leadership &amp;<br />Team Growth
+            </div>
+            <div class="exp-detail">
+              Hiring bars, culture, mentorship, span of control
+            </div>
+          </div>
+
+          <div class="expertise-item reveal reveal-delay-3">
+            <div class="exp-num">03</div>
+            <div class="exp-title">
+              Cloud, AWS &amp;<br />Event-Driven Systems
+            </div>
+            <div class="exp-detail">
+              Serverless, EDA, microservices at production scale
+            </div>
+          </div>
+
+          <div class="expertise-item reveal reveal-delay-1">
+            <div class="exp-num">04</div>
+            <div class="exp-title">DevOps, CI/CD &amp;<br />Automation</div>
+            <div class="exp-detail">
+              Platform engineering, deployment pipelines, SLOs
+            </div>
+          </div>
+
+          <div class="expertise-item reveal reveal-delay-2">
+            <div class="exp-num">05</div>
+            <div class="exp-title">NLP &amp; Applied AI</div>
+            <div class="exp-detail">
+              Production ML, LLM integration, responsible deployment
+            </div>
+          </div>
+
+          <div class="expertise-item reveal reveal-delay-3">
+            <div class="exp-num">06</div>
+            <div class="exp-title">Product Strategy &amp;<br />Delivery</div>
+            <div class="exp-detail">
+              Roadmap, discovery, cross-functional alignment
+            </div>
+          </div>
+
+          <div
+            class="expertise-item reveal reveal-delay-1"
+            style="border-bottom: none"
+          >
+            <div class="exp-num">07</div>
+            <div class="exp-title">Full-Stack Development</div>
+            <div class="exp-detail">
+              TypeScript · Python · Svelte · Java · Postgres · NoSQL
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPROACH ─────────────────────────────────────────── -->
+    <section id="approach">
+      <div class="section-inner">
+        <p class="section-label reveal">How I Work</p>
+        <h2 class="section-title reveal reveal-delay-1">
+          Principles in practice.
+        </h2>
+        <div class="section-rule reveal reveal-delay-2"></div>
+
+        <div class="approach-grid">
+          <div class="approach-item reveal reveal-delay-2">
+            <div class="approach-rule"></div>
+            <h3 class="approach-title">Intent before architecture</h3>
+            <p class="approach-body">
+              The best technical decisions are grounded in a clear understanding
+              of the problem. I spend time upstream — with stakeholders, with
+              data, with the people closest to the work — before committing to
+              solutions.
+            </p>
+          </div>
+
+          <div class="approach-item reveal reveal-delay-3">
+            <div class="approach-rule"></div>
+            <h3 class="approach-title">Fewer, better meetings</h3>
+            <p class="approach-body">
+              I believe deeply in async-first communication and ruthlessly
+              purposeful ceremonies. Every recurring meeting has an owner, a
+              goal, and a clear exit condition. Everything else is a document.
+            </p>
+          </div>
+
+          <div class="approach-item reveal reveal-delay-4">
+            <div class="approach-rule"></div>
+            <h3 class="approach-title">Delivery as a team sport</h3>
+            <p class="approach-body">
+              Progress is a collective responsibility. I create systems where
+              engineers understand the 'why', PMs have technical context, and
+              the gap between strategy and execution is as small as possible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT ──────────────────────────────────────────── -->
+    <section id="contact">
+      <div class="section-inner">
+        <div class="contact-layout">
+          <div>
+            <h2 class="contact-heading reveal">
+              Let's build<br />something<br /><span>worth building.</span>
+            </h2>
+            <p class="contact-body reveal reveal-delay-2">
+              Open to CTO, VP Engineering, and fractional advisory engagements.
+              Particularly interested in teams building at the intersection of
+              AI, developer tooling, and complex distributed systems.
+            </p>
+          </div>
+
+          <div class="contact-items reveal reveal-delay-2">
+            <a href="mailto:hello@morganblake.io" class="contact-item">
+              <div class="ci-left">
+                <div class="ci-label">Email</div>
+                <div class="ci-value">hello@morganblake.io</div>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="contact-item">
+              <div class="ci-left">
+                <div class="ci-label">LinkedIn</div>
+                <div class="ci-value">linkedin.com/in/morganblake</div>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+            <a href="https://github.com" target="_blank" class="contact-item">
+              <div class="ci-left">
+                <div class="ci-label">GitHub</div>
+                <div class="ci-value">github.com/morganblake</div>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+            <a href="/cv.pdf" class="contact-item">
+              <div class="ci-left">
+                <div class="ci-label">CV / Résumé</div>
+                <div class="ci-value">Download PDF</div>
+              </div>
+              <span class="ci-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER ───────────────────────────────────────────── -->
+    <footer>
+      <div class="footer-name">Morgan Blake</div>
+      <div class="footer-copy">© 2026. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="mailto:hello@morganblake.io">Email</a>
+        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+      </div>
+    </footer>
+
+    <script>
+      /* ─── NAV: scrolled state + active section ─────────── */
+      const navEl = document.getElementById("nav");
+      const navLinks = document.querySelectorAll(".nav-links a");
+      const sections = document.querySelectorAll("section[id]");
+
+      function onScroll() {
+        navEl.classList.toggle("scrolled", window.scrollY > 40);
+
+        let current = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 100) current = s.id;
+        });
+
+        navLinks.forEach((a) => {
+          a.classList.toggle(
+            "active",
+            a.getAttribute("href") === "#" + current,
+          );
+        });
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      /* ─── SCROLL REVEAL ────────────────────────────────── */
+      const revealEls = document.querySelectorAll(".reveal");
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      revealEls.forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
