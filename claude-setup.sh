@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run once after container creation to install baseline skills and plugins.
+# Run once after container creation to authenticate Claude and configure baseline plugins.
 set -e
 
 echo "Checking Claude authentication..."
@@ -8,10 +8,35 @@ if ! claude auth status &>/dev/null; then
     claude auth login
 fi
 
-echo "Installing Claude plugins and skills..."
-claude /plugin install skill-creator@claude-plugins-official
-claude /plugin install superpowers@claude-plugins-official
-claude /plugin install claude-mem
-claude /plugin install frontend-design@claude-plugins-official
+echo "Writing Claude plugin configuration..."
+mkdir -p ~/.claude
+cat > ~/.claude/settings.json << 'EOF'
+{
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "context-mode@context-mode": true,
+    "claude-mem@thedotmack": true,
+    "frontend-design@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "context-mode": {
+      "source": {
+        "source": "github",
+        "repo": "mksglu/context-mode"
+      }
+    },
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark-daltonized"
+}
+EOF
 
-echo "Done. Run 'claude' to verify."
+echo "Done. Run 'claude' to verify plugins are listed."

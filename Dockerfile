@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     wget \
+    unzip \
     build-essential \
     zsh \
     bash \
