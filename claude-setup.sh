@@ -12,6 +12,7 @@ echo "Writing Claude plugin configuration..."
 mkdir -p ~/.claude
 cat > ~/.claude/settings.json << 'EOF'
 {
+  "includeCoAuthoredBy": false,
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
     "context-mode@context-mode": true,
